@@ -17,11 +17,29 @@ gameport.appendChild(renderer.view);
 // Load an image and run the 'setup' when it's done
 loader
 	.add("images/SmallBlock.png")
+	//.on("progress", loadProgressHandler)
 	.load(setup);
 	
 	
+/*	
+function loadProgressHandler(loader, resource) {
+	
+	// Displays the file location that is being loaded
+	console.log("Loading: " + resource.url);
+	
+	// Display the percentage of the total files currently loaded
+	console.log("Progress: " + loader.progress + "%")
+}
+*/
+	
 function setup() {
 	var block = new Sprite(resources["images/SmallBlock.png"].texture);
+	
+	
+	// Location for Spaceship (idea)
+	block.x = 400;
+	block.y = 570;
+	
 	stage.addChild(block);
 	renderer.render(stage);
 }
