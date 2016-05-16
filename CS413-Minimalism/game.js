@@ -1,40 +1,30 @@
 // Attach to the HTML document via gameport ID
 var gameport = document.getElementById("gameport");
 
-// Create the Renderer
-// 400x400 pixel with a black background
-var renderer = PIXI.autoDetectRenderer(400, 400, {BackgroundColor: 0x3344ee});
-
-// Apply to the HTML view
-gameport.appendChild(renderer.view);
-
-// Create the stage using the Container object
-var stage = new PIXI.Container();
-
-// Creating a texture from the SmallBlock Image
-var texture = PIXI.Texture.fromImage("SmallBlock.png")
-
-// Applying the texture to a sprite
-var sprite = new PIXI.Sprite(texture);
-
-// Anchoring a pivot point in the middle
-sprite.anchor.x = 0.5;
-sprite.anchor.y = 0.5;
-
-
-// Placing the sprite at location x=200, y=200
-sprite.position.x = 200;
-sprite.position.y = 200;
-
-// Adding to the stage
-stage.addChild(sprite);
-
-function animate() {
-	requestAnimationFrame(animate);
-	sprite.rotation += 0.1;
+// Using Aliasing 
+var Container = PIXI.Container,
+	autoDetectRenderer = PIXI.autoDetectRenderer,
+	loader = PIXI.loader,
+	resources = PIXI.loader.resources,
+	Sprite = PIXI.Sprite;
 	
-	// Renderer 'renders' the stage.
+// Creating the PIXI stage and renderer
+var stage = new Container(),
+	renderer = autoDetectRenderer(800, 600, {backgroundColor: 0x000000});
+// Appying to the HTML view
+gameport.appendChild(renderer.view);
+	
+// Load an image and run the 'setup' when it's done
+loader
+	.add("images/SmallBlock.png")
+	.load(setup);
+	
+	
+function setup() {
+	var block = new Sprite(resources["images/SmallBlock.png"].texture);
+	stage.addChild(block);
 	renderer.render(stage);
 }
+	
 
-animate();
+
