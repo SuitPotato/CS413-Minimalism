@@ -11,16 +11,22 @@ gameport.appendChild(renderer.view);
 // Create the stage using the Container object
 var stage = new PIXI.Container();
 
+// Creating a texture from the SmallBlock Image
 var texture = PIXI.Texture.fromImage("SmallBlock.png")
 
+// Applying the texture to a sprite
 var sprite = new PIXI.Sprite(texture);
 
+// Anchoring a pivot point in the middle
 sprite.anchor.x = 0.5;
 sprite.anchor.y = 0.5;
 
+
+// Placing the sprite at location x=200, y=200
 sprite.position.x = 200;
 sprite.position.y = 200;
 
+// Adding to the stage
 stage.addChild(sprite);
 
 function animate() {
