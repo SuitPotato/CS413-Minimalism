@@ -1,11 +1,11 @@
 var gameport = document.getElementById("gameport");
 
-var renderer = PIXI.autoDetectRenderer(400, 400, {BackgroundColor: 0xFFFFFF});
+var renderer = PIXI.autoDetectRenderer(400, 400, {BackgroundColor: 0x3344ee});
 gameport.appendChild(renderer.view);
 
 var stage = new PIXI.Container();
 
-var texture = PIXI.Texture.fromImage("Small Block.png")
+var texture = PIXI.Texture.fromImage("SmallBlock.png")
 
 var sprite = new PIXI.Sprite(texture);
 
