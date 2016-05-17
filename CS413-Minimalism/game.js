@@ -91,6 +91,20 @@ function setup() {
 	gameScene.addChild(space);
 	
 	/*******************************************************************************************************
+	Game Over Text - Display score, however Game over is fine for now
+	*******************************************************************************************************/
+	
+	gameOverMessage = new Text(
+		"Game Over!",
+		{font: "64px Arial", fill: "white"}
+		);
+		
+	gameOverMessage.x = 400;
+	gameOverMessage.y = 300;
+	
+	//gameOverScene.addChild(gameOverMessage);
+	
+	/*******************************************************************************************************
 	Ship Creation
 	*******************************************************************************************************/
 	// Creating ship sprite and applying to stage.
@@ -100,27 +114,6 @@ function setup() {
 	// Setting Velocity to 0
 	ship.vx = 0
 	stage.addChild(ship);
-	
-	/*******************************************************************************************************
-	Asteroid Creation - Need to have them spawn in and fly to the player 
-	*******************************************************************************************************/
-	asteroid = new Sprite(id["asteroid.png"]);
-	stage.addChild(asteroid);
-	
-	/*******************************************************************************************************
-	Game Over Text - Display score, however Game over is fine for now
-	*******************************************************************************************************/
-	/*
-	gameOverMessage = new Text(
-		"Game Over!",
-		{font: "64px Arial", fill: "white"}
-		);
-		
-	gameOverMessage.x = 400;
-	gameOverMessage.y = 300;
-	
-	gameOverScene.addChild(gameOverMessage);
-	*/
 	
 	/*******************************************************************************************************
 	Keyboard Control Definitions
@@ -151,6 +144,8 @@ function setup() {
 	/*******************************************************************************************************
 	Render Setup!
 	*******************************************************************************************************/
+	spawnAsteroid(8,4);
+	
 	renderer.render(stage);
 	state = play;
 	gameLoop();
@@ -182,6 +177,8 @@ function play() {
 	
 	// Calling contain function
 	contain(ship, {x: 0, y:0, width: 800, height: 600})
+	
+	
 }	
 
 /**********************************************************************************************************
@@ -228,6 +225,8 @@ function contain(sprite, container) {
 	
 	return collision
 }
+
+
 /**********************************************************************************************************
 Keyboard Function
 **********************************************************************************************************/
@@ -284,7 +283,7 @@ function keyboard(keyCode) {
   return key;
 }
 /**********************************************************************************************************
-Random Integer Function - Use for Asteroid Speed
+Random Integer Function - Use for Asteroid Speed + Position
 **********************************************************************************************************/
 // Generates a random number using the Math.random from Javascript
 // Random generates a number from [0,1). Min and max reachable.
@@ -296,14 +295,53 @@ Hit Detection Function
 **********************************************************************************************************/
 
 
+/*******************************************************************************************************
+Asteroid Creation - Need to have them spawn in and fly to the player 
+*******************************************************************************************************/
+function spawnAsteroid(count, maxSpeed) {
+	
+	// ID to call for sprite texture
+	//id = PIXI.loader.resources["images/sheet.json"].textures;
+	// Empty asteroid array	
+	asteroids = [];
+	
+	for(var i = 0; i<count; i++){
+		// Asteroid sprite created
+		var asteroid = new Sprite(id["asteroid.png"]);
+		
+		// Random x and set Y
+		var x = randomInt(0, stage.width - asteroid.width);
+		var y = 300;
+		
+		// Set the X and Y
+		asteroid.x = x;
+		asteroid.y = y;
+		
+		// Set the velocity
+		asteroid.vy = randomInt(1,maxSpeed);
+		
+		// Push the asteroid
+		asteroids.push(asteroid);
+		
+		// Add to gameScene
+		gameScene.addChild(asteroid);
+	}
+}
 
-
-
-
-
-
-
-
-
-
+/**********************************************************************************************************
+Asteroid Contain Function
+**********************************************************************************************************/
+function asteroidContain(sprite, container) {
+	
+	// Undef until collision, displays the collision location when a collision occurs
+	var collision = undefined;
+	
+	// Bottom Side
+	if (sprite.y + sprite.height > container.height){
+		sprite.y = container.height - sprite.height;
+		sprite.x = randomInt(0, stage.width - asteroid.width);
+	}
+	
+	return collision
+}
 
