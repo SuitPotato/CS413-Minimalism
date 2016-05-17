@@ -1,3 +1,7 @@
+/**********************************************************************************************************
+Keith Saunders Project 1
+**********************************************************************************************************/
+
 // Attach to the HTML document via gameport ID
 var gameport = document.getElementById("gameport");
 
@@ -19,14 +23,21 @@ var stage = new Container(),
 	
 // Appying to the HTML view
 gameport.appendChild(renderer.view);
-	
+
+
+
+/**********************************************************************************************************
+Loader
+**********************************************************************************************************/	
 // Load a JSON file and run the setup function. 
 // 'adds' the JSON sheet
 loader
 	.add("images/sheet.json")
 	//.on("progress", loadProgressHandler)
 	.load(setup);
-	
+/**********************************************************************************************************
+Loading Progress Bar (?)
+**********************************************************************************************************/	
 /*	
 function loadProgressHandler(loader, resource) {
 	
@@ -38,8 +49,10 @@ function loadProgressHandler(loader, resource) {
 }
 */
 
+/**********************************************************************************************************
+Keyboard Function
+**********************************************************************************************************/
 // Keyboard function to support general Ascii Key Codes function creation
-// 
 function keyboard(keyCode) {
 	// Empty Key Object
 	var key = {};
@@ -94,34 +107,88 @@ function keyboard(keyCode) {
 
 
 // Defining several variables that will be used multiple times	
-var playership, asteroid, space;
+/***********************************************************************************************************
+Variable Creation
+***********************************************************************************************************/
+// Ship = Player Ship
+// Asteroid = Enemy Projectile
+// Space = Background
+// State = State in which the game is in.
+var ship, asteroid, space, state;
+
+/**********************************************************************************************************
+Setup Function
+**********************************************************************************************************/
 	
 function setup() {
 	
 	
-	
+	/*******************************************************************************************************
+	Texture Creation
+	*******************************************************************************************************/
 	// Accessing TextureCache directly to grab the Background/Ship/Asteroid.
 	var spaceTexture = TextureCache["Background.png"];
 	var shipTexture = TextureCache["Pship.png"];
 	var asteroidTexture = TextureCache["asteroid.png"];
 	
+	
+	/*******************************************************************************************************
+	Space/Background Creation
+	*******************************************************************************************************/
 	// Creating space sprite and applying to stage.
 	space = new Sprite(spaceTexture);
 	stage.addChild(space);
 	
+	/*******************************************************************************************************
+	Ship Creation
+	*******************************************************************************************************/
 	// Creating ship sprite and applying to stage.
 	ship = new Sprite(shipTexture);
 	ship.x = 300;
 	ship.y = 480;
+	// Setting Velocity to 0
+	ship.vx = 0
 	stage.addChild(ship);
 	
-	
+	/*******************************************************************************************************
+	Asteroid Creation
+	*******************************************************************************************************/
 	id = PIXI.loader.resources["images/sheet.json"].textures;
 	asteroid = new Sprite(id["asteroid.png"]);
 	stage.addChild(asteroid);
 	
-
+	/*******************************************************************************************************
+	Keyboard Control Definitions
+	*******************************************************************************************************/
+	// Variables storing Ascii keyCodes for arrow keys
+	var left = keyboard(37),
+		right = keyboard(39);
+		
+	left.press = function() {
+		ship.vx = -5;
+	}
+	
+	left.release = function() {
+		// If right is not down, then set velocity (x) to 0.
+		if(!right.isDown)
+			ship.vx = 0;
+	}
+	
+	right.press = function() {
+		ship.vx = 5;
+	}
+	
+	right.release = function() {
+		// If left is not down, then set velocity (x) to 0.
+		if(!left.isDown)
+			ship.vx = 0;
+	}
+	/*******************************************************************************************************
+	Render Setup!
+	*******************************************************************************************************/
 	renderer.render(stage);
+	state = play;
+	gameLoop();
 }
 
 
@@ -132,14 +199,18 @@ function gameLoop() {
 	// Constantly loop through this function
 	requestAnimationFrame(gameLoop);
 	
-	// Shift the ship .10 of a pixel to the right each loop
-	ship.x += 0.1;
+	state();
+	
 	
 	// Render the stage
 	renderer.render(stage);
 }
 
 gameLoop();
-	
+
+
+function play() {
+	ship.x += ship.vx;
+}	
 
 
