@@ -214,6 +214,37 @@ function setup() {
 }
 
 /**********************************************************************************************************
+GameLoop Function
+**********************************************************************************************************/
+// Animate function recreated
+function gameLoop() {
+	
+	// Constantly loop through this function
+	requestAnimationFrame(gameLoop);
+	
+	state();
+	
+	// Render the stage
+	renderer.render(stage);
+}
+
+/**********************************************************************************************************
+Play Function and State
+**********************************************************************************************************/
+//Play needs to contain the movement of the player! 
+function play() {
+	
+	// Add (or subtract) to the ship's x-axis based on input
+	ship.x += ship.vx;
+	
+	// Calling contain function
+	contain(ship, {x: 0, y:0, width: 800, height: 600})
+}	
+
+/**********************************************************************************************************
+Helper Function
+***********************************************************************************************************
+***********************************************************************************************************
 Contain Function
 **********************************************************************************************************/
 /* 
@@ -254,36 +285,4 @@ function contain(sprite, container) {
 	
 	return collision
 }
-
-/**********************************************************************************************************
-GameLoop Function
-**********************************************************************************************************/
-// Animate function recreated
-function gameLoop() {
-	
-	// Constantly loop through this function
-	requestAnimationFrame(gameLoop);
-	
-	state();
-	
-	// Render the stage
-	renderer.render(stage);
-}
-
-/**********************************************************************************************************
-Play Function and State
-**********************************************************************************************************/
-//Play needs to contain the movement of the player! 
-function play() {
-	
-	// Add (or subtract) to the ship's x-axis based on input
-	ship.x += ship.vx;
-	
-	// Calling contain function
-	contain(ship, {x: 0, y:0, width: 800, height: 600})
-	
-	
-	
-}	
-
 
