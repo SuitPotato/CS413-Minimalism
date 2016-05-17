@@ -176,15 +176,15 @@ function play() {
 	// Add (or subtract) to the ship's x-axis based on input
 	ship.x += ship.vx;
 	
+	// Calling contain function
+	contain(ship, {x: 0, y:0, width: 800, height: 600})
+	contain(asteroids, {x: 0, y: 800, width:800, height: 100})
 	
-	
-	for(var i = 0; asteroids.length; i++) {
-		alert(asteroids[i]);
+	for(var i = 0; i < asteroids.length; i++) {
 		asteroids[i].position.y += asteroids[i].position.vy;
 	}
 	
-	// Calling contain function
-	contain(ship, {x: 0, y:0, width: 800, height: 600})
+	
 
 }	
 
@@ -316,7 +316,7 @@ function spawnAsteroid(count, maxSpeed) {
 		
 		// Random x and set Y
 		var x = randomInt(0, stage.width - asteroid.width);
-		var y = 300;
+		var y = 900;
 		
 		// Set the X and Y
 		asteroid.x = x;
@@ -345,6 +345,7 @@ function asteroidContain(sprite, container) {
 	if (sprite.y + sprite.height > container.height){
 		sprite.y = container.height - sprite.height;
 		sprite.x = randomInt(0, stage.width - asteroid.width);
+		collision = 'hit';
 	}
 	
 	return collision
