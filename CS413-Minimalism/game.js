@@ -4,22 +4,30 @@ var gameport = document.getElementById("gameport");
 // Using Aliasing 
 var Container = PIXI.Container,
 	autoDetectRenderer = PIXI.autoDetectRenderer,
+	// Premade instance of the loader that can be used to load resources
 	loader = PIXI.loader,
 	resources = PIXI.loader.resources,
+	// Texture cache is shared across the whole PIXI object
+	TextureCache = PIXI.utils.TextureCache,
+	// Stores the information that represents an image or part of an image.
+	Texture = PIXI.Texture,
 	Sprite = PIXI.Sprite;
 	
 // Creating the PIXI stage and renderer
 var stage = new Container(),
 	renderer = autoDetectRenderer(800, 600, {backgroundColor: 0x000000});
+	
 // Appying to the HTML view
 gameport.appendChild(renderer.view);
 	
-// Load an image and run the 'setup' when it's done
+// Load a JSON file and run the setup function. 
+// 'adds' the JSON sheet
 loader
-	.add("images/SmallBlock.png")
+	.add("images/sheet.json")
 	//.on("progress", loadProgressHandler)
 	.load(setup);
 	
+
 	
 /*	
 function loadProgressHandler(loader, resource) {
@@ -31,16 +39,34 @@ function loadProgressHandler(loader, resource) {
 	console.log("Progress: " + loader.progress + "%")
 }
 */
+
+// Defining several variables that will be used multiple times	
+var playership, asteroid, space;
 	
 function setup() {
-	var block = new Sprite(resources["images/SmallBlock.png"].texture);
 	
+	// Accessing TextureCache directly to grab the Background/Ship/Asteroid.
+	var spaceTexture = TextureCache["Background.png"];
+	var shipTexture = TextureCache["Pship.png"];
+	var asteroidTexture = TextureCache["asteroid.png"];
 	
-	// Location for Spaceship (idea)
-	block.x = 400;
-	block.y = 570;
+	// Creating space sprite and applying to stage.
+	space = new Sprite(spaceTexture);
+	stage.addChild(space);
 	
-	stage.addChild(block);
+	// Creating ship sprite and applying to stage.
+	ship = new Sprite(shipTexture);
+	ship.x = 300;
+	ship.y = 300;
+	stage.addChild(ship);
+	
+	id = PIXI.loader.resources["images/sheet.json"].textures;
+	
+	asteroid = new Sprite(id["asteroid.png"]);
+	stage.addChild(asteroid);
+	
+
+	
 	renderer.render(stage);
 }
 	
