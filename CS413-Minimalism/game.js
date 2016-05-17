@@ -112,7 +112,7 @@ function setup() {
 	// Creating ship sprite and applying to stage.
 	ship = new Sprite(shipTexture);
 	ship.x = 300;
-	ship.y = 300;
+	ship.y = 480;
 	stage.addChild(ship);
 	
 	
