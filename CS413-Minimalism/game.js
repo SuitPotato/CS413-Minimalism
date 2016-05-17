@@ -144,8 +144,8 @@ function setup() {
 	/*******************************************************************************************************
 	Render Setup!
 	*******************************************************************************************************/
-	spawnAsteroid(8,4);
 	
+	spawnAsteroid(8,4);
 	renderer.render(stage);
 	state = play;
 	gameLoop();
@@ -175,10 +175,13 @@ function play() {
 	// Add (or subtract) to the ship's x-axis based on input
 	ship.x += ship.vx;
 	
+	for(var i = 0; asteroids.length; i++) {
+		asteroids[i].y += asteroids[i].vy;
+	}
+	
 	// Calling contain function
 	contain(ship, {x: 0, y:0, width: 800, height: 600})
-	
-	
+
 }	
 
 /**********************************************************************************************************
@@ -300,8 +303,7 @@ Asteroid Creation - Need to have them spawn in and fly to the player
 *******************************************************************************************************/
 function spawnAsteroid(count, maxSpeed) {
 	
-	// ID to call for sprite texture
-	//id = PIXI.loader.resources["images/sheet.json"].textures;
+	
 	// Empty asteroid array	
 	asteroids = [];
 	
