@@ -27,8 +27,6 @@ loader
 	//.on("progress", loadProgressHandler)
 	.load(setup);
 	
-
-	
 /*	
 function loadProgressHandler(loader, resource) {
 	
@@ -45,6 +43,8 @@ var playership, asteroid, space;
 	
 function setup() {
 	
+	
+	
 	// Accessing TextureCache directly to grab the Background/Ship/Asteroid.
 	var spaceTexture = TextureCache["Background.png"];
 	var shipTexture = TextureCache["Pship.png"];
@@ -60,15 +60,29 @@ function setup() {
 	ship.y = 300;
 	stage.addChild(ship);
 	
-	id = PIXI.loader.resources["images/sheet.json"].textures;
 	
+	id = PIXI.loader.resources["images/sheet.json"].textures;
 	asteroid = new Sprite(id["asteroid.png"]);
 	stage.addChild(asteroid);
 	
 
-	
 	renderer.render(stage);
 }
+
+// Animate function recreated
+function gameLoop() {
+	
+	// Constantly loop through this function
+	requestAnimationFrame(gameLoop);
+	
+	// Shift the ship .10 of a pixel to the right each loop
+	ship.x += 0.1;
+	
+	// Render the stage
+	renderer.render(stage);
+}
+
+gameLoop();
 	
 
 
