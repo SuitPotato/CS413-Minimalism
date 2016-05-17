@@ -38,6 +38,61 @@ function loadProgressHandler(loader, resource) {
 }
 */
 
+// Keyboard function to support general Ascii Key Codes function creation
+// 
+function keyboard(keyCode) {
+	// Empty Key Object
+	var key = {};
+	// Code:keyCode
+	key.code = keyCode;
+	
+	// Default Settings for button positions
+	key.isDown = false;
+	key.isUp = true;
+	key.press = undefined;
+	key.release = undefined;
+  
+	// When the key is pressed, call the downHandler
+	key.downHandler = function(event) {
+		// Verify the keyCode parameter matches the object code
+		if (event.keyCode === key.code) {
+			// If the key is up then key press
+			if (key.isUp && key.press) key.press();
+			
+			// Settings for button positions
+			key.isDown = true;
+			key.isUp = false;
+		}
+		// Cancels the event
+		event.preventDefault();
+	};
+
+	//The is released, call the upHandler
+	key.upHandler = function(event) {
+		// Verify the keyCode parameter matches the object code
+		if (event.keyCode === key.code) {
+			// If the key is down and released then release
+			if (key.isDown && key.release) key.release();
+			
+			// Setting for button positions
+			key.isDown = false;
+			key.isUp = true;
+		}
+	// Cancels the event
+	event.preventDefault();
+	};
+
+  //Attach event listeners
+  window.addEventListener(
+    "keydown", key.downHandler.bind(key), false
+  );
+  window.addEventListener(
+    "keyup", key.upHandler.bind(key), false
+  );
+  return key;
+}
+
+
 // Defining several variables that will be used multiple times	
 var playership, asteroid, space;
 	
@@ -68,6 +123,8 @@ function setup() {
 
 	renderer.render(stage);
 }
+
+
 
 // Animate function recreated
 function gameLoop() {
