@@ -165,6 +165,20 @@ function setup() {
 	stage.addChild(asteroid);
 	
 	/*******************************************************************************************************
+	Game Over Text - Display score, however Game over is fine for now
+	*******************************************************************************************************/
+	
+	gameOverMessage = new Text(
+		"Game Over!",
+		{font: "64px Futura", fill: "white"}
+		);
+		
+	gameOverMessage.x = 400;
+	gameOverMessage.y = 300;
+	
+	gameOverScene.addChild(gameOverMessage);
+	
+	/*******************************************************************************************************
 	Keyboard Control Definitions
 	*******************************************************************************************************/
 	// Variables storing Ascii keyCodes for arrow keys
