@@ -58,6 +58,7 @@ Variable Creation
 // Space = Background
 // State = State in which the game is in.
 var ship, asteroid, space, state;
+var asteroids = [];
 
 /**********************************************************************************************************
 Setup Function
@@ -175,8 +176,11 @@ function play() {
 	// Add (or subtract) to the ship's x-axis based on input
 	ship.x += ship.vx;
 	
+	
+	
 	for(var i = 0; asteroids.length; i++) {
-		asteroids[i].y += asteroids[i].vy;
+		alert(asteroids[i]);
+		asteroids[i].position.y += asteroids[i].position.vy;
 	}
 	
 	// Calling contain function
@@ -304,8 +308,7 @@ Asteroid Creation - Need to have them spawn in and fly to the player
 function spawnAsteroid(count, maxSpeed) {
 	
 	
-	// Empty asteroid array	
-	asteroids = [];
+	// Empty asteroid array	declared in global.
 	
 	for(var i = 0; i<count; i++){
 		// Asteroid sprite created
