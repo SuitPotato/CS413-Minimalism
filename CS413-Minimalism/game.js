@@ -122,28 +122,36 @@ Setup Function
 	
 function setup() {
 	
+	/*******************************************************************************************************
+	Scene Creations
+	*******************************************************************************************************/
+	// Actual Game scene
+	gameScene = new Container();
+	stage.addChild(gameScene);
+	
+	// Game Over scene, set to invisible!
+	gameOverScene = new Container();
+	stage.addChild(gameOverScene);
+	gameOverScene.visible = false;
 	
 	/*******************************************************************************************************
-	Texture Creation
+	Sprite Creation Setup!
 	*******************************************************************************************************/
-	// Accessing TextureCache directly to grab the Background/Ship/Asteroid.
-	var spaceTexture = TextureCache["Background.png"];
-	var shipTexture = TextureCache["Pship.png"];
-	var asteroidTexture = TextureCache["asteroid.png"];
-	
+	// Creating an alias to the texture atlas
+	id = PIXI.loader.resources["images/sheet.json"].textures;
 	
 	/*******************************************************************************************************
 	Space/Background Creation
 	*******************************************************************************************************/
-	// Creating space sprite and applying to stage.
-	space = new Sprite(spaceTexture);
-	stage.addChild(space);
+	// Creating space sprite and applying to GAMESCENE (not stage)
+	space = new Sprite(id["Background.png"]);
+	gameScene.addChild(space);
 	
 	/*******************************************************************************************************
 	Ship Creation
 	*******************************************************************************************************/
 	// Creating ship sprite and applying to stage.
-	ship = new Sprite(shipTexture);
+	ship = new Sprite(id["Pship.png"]);
 	ship.x = 300;
 	ship.y = 480;
 	// Setting Velocity to 0
@@ -151,9 +159,8 @@ function setup() {
 	stage.addChild(ship);
 	
 	/*******************************************************************************************************
-	Asteroid Creation
+	Asteroid Creation - Need to have them spawn in and fly to the player 
 	*******************************************************************************************************/
-	id = PIXI.loader.resources["images/sheet.json"].textures;
 	asteroid = new Sprite(id["asteroid.png"]);
 	stage.addChild(asteroid);
 	
