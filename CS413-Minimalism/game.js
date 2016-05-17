@@ -282,6 +282,8 @@ function play() {
 	// Calling contain function
 	contain(ship, {x: 0, y:0, width: 800, height: 600})
 	
+	
+	
 }	
 
 
