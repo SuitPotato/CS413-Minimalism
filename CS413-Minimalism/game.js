@@ -49,63 +49,6 @@ function loadProgressHandler(loader, resource) {
 }
 */
 
-/**********************************************************************************************************
-Keyboard Function
-**********************************************************************************************************/
-// Keyboard function to support general Ascii Key Codes function creation
-function keyboard(keyCode) {
-	// Empty Key Object
-	var key = {};
-	// Code:keyCode
-	key.code = keyCode;
-	
-	// Default Settings for button positions
-	key.isDown = false;
-	key.isUp = true;
-	key.press = undefined;
-	key.release = undefined;
-  
-	// When the key is pressed, call the downHandler
-	key.downHandler = function(event) {
-		// Verify the keyCode parameter matches the object code
-		if (event.keyCode === key.code) {
-			// If the key is up then key press
-			if (key.isUp && key.press) key.press();
-			
-			// Settings for button positions
-			key.isDown = true;
-			key.isUp = false;
-		}
-		// Cancels the event
-		event.preventDefault();
-	};
-
-	//The is released, call the upHandler
-	key.upHandler = function(event) {
-		// Verify the keyCode parameter matches the object code
-		if (event.keyCode === key.code) {
-			// If the key is down and released then release
-			if (key.isDown && key.release) key.release();
-			
-			// Setting for button positions
-			key.isDown = false;
-			key.isUp = true;
-		}
-	// Cancels the event
-	event.preventDefault();
-	};
-
-  //Attach event listeners
-  window.addEventListener(
-    "keydown", key.downHandler.bind(key), false
-  );
-  window.addEventListener(
-    "keyup", key.upHandler.bind(key), false
-  );
-  return key;
-}
-
-
 // Defining several variables that will be used multiple times	
 /***********************************************************************************************************
 Variable Creation
@@ -285,4 +228,82 @@ function contain(sprite, container) {
 	
 	return collision
 }
+/**********************************************************************************************************
+Keyboard Function
+**********************************************************************************************************/
+// Keyboard function to support general Ascii Key Codes function creation
+function keyboard(keyCode) {
+	// Empty Key Object
+	var key = {};
+	// Code:keyCode
+	key.code = keyCode;
+	
+	// Default Settings for button positions
+	key.isDown = false;
+	key.isUp = true;
+	key.press = undefined;
+	key.release = undefined;
+  
+	// When the key is pressed, call the downHandler
+	key.downHandler = function(event) {
+		// Verify the keyCode parameter matches the object code
+		if (event.keyCode === key.code) {
+			// If the key is up then key press
+			if (key.isUp && key.press) key.press();
+			
+			// Settings for button positions
+			key.isDown = true;
+			key.isUp = false;
+		}
+		// Cancels the event
+		event.preventDefault();
+	};
+
+	//The is released, call the upHandler
+	key.upHandler = function(event) {
+		// Verify the keyCode parameter matches the object code
+		if (event.keyCode === key.code) {
+			// If the key is down and released then release
+			if (key.isDown && key.release) key.release();
+			
+			// Setting for button positions
+			key.isDown = false;
+			key.isUp = true;
+		}
+	// Cancels the event
+	event.preventDefault();
+	};
+
+  //Attach event listeners
+  window.addEventListener(
+    "keydown", key.downHandler.bind(key), false
+  );
+  window.addEventListener(
+    "keyup", key.upHandler.bind(key), false
+  );
+  return key;
+}
+/**********************************************************************************************************
+Random Integer Function - Use for Asteroid Speed
+**********************************************************************************************************/
+// Generates a random number using the Math.random from Javascript
+// Random generates a number from [0,1). Min and max reachable.
+function randomInt(min, max){
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+/**********************************************************************************************************
+Hit Detection Function
+**********************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
 
