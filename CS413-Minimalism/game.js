@@ -167,16 +167,17 @@ function setup() {
 	/*******************************************************************************************************
 	Game Over Text - Display score, however Game over is fine for now
 	*******************************************************************************************************/
-	
+	/*
 	gameOverMessage = new Text(
 		"Game Over!",
-		{font: "64px Futura", fill: "white"}
+		{font: "64px Arial", fill: "white"}
 		);
 		
 	gameOverMessage.x = 400;
 	gameOverMessage.y = 300;
 	
 	gameOverScene.addChild(gameOverMessage);
+	*/
 	
 	/*******************************************************************************************************
 	Keyboard Control Definitions
@@ -213,6 +214,48 @@ function setup() {
 }
 
 /**********************************************************************************************************
+Contain Function
+**********************************************************************************************************/
+/* 
+Need to detect if the ship is hitting the edge of the game stage.
+Takes in two arguments, a sprite and an container object
+Container has the following values:
+x: x - offset
+y: y - offset
+width and height: Area defined
+*/
+function contain(sprite, container) {
+	
+	// Undef until collision, displays the collision location when a collision occurs
+	var collision = undefined;
+	
+	// Left Side
+	if (sprite.x < container.y){
+		sprite.x = container.x;
+		collision = 'left';
+	}
+	
+	// Top Side
+	if (sprite.y < container.y){
+		sprite.y = container.y;
+		collision = 'top';
+	}
+	
+	// Right Side
+	if (sprite.x + sprite.width > container.width){
+		sprite.x = container.width - sprite.width;
+		collision = 'right';
+	}
+	
+	// Bottom Side
+	if (sprite.y + sprite.height > container.height){
+		sprite.y = container.height - sprite.height;
+	}
+	
+	return collision
+}
+
+/**********************************************************************************************************
 GameLoop Function
 **********************************************************************************************************/
 // Animate function recreated
@@ -223,7 +266,6 @@ function gameLoop() {
 	
 	state();
 	
-	
 	// Render the stage
 	renderer.render(stage);
 }
@@ -231,7 +273,7 @@ function gameLoop() {
 /**********************************************************************************************************
 Play Function and State
 **********************************************************************************************************/
-
+//Play needs to contain the movement of the player! 
 function play() {
 	ship.x += ship.vx;
 }	
