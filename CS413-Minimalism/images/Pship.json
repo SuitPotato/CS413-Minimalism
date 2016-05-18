@@ -1,19 +1,19 @@
 { "frames": {
    "Pship.ase": {
-    "frame": { "x": 0, "y": 0, "w": 150, "h": 100 },
+    "frame": { "x": 0, "y": 0, "w": 75, "h": 100 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 150, "h": 100 },
-    "sourceSize": { "w": 150, "h": 100 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 75, "h": 100 },
+    "sourceSize": { "w": 75, "h": 100 },
     "duration": 100
    }
  },
  "meta": {
   "app": "http://www.aseprite.org/",
   "version": "1.1.5.2",
-  "image": "C:\\Users\\Keith\\Documents\\GitHub\\CS413-Minimalism\\CS413-Minimalism\\images\\Pship.png",
-  "format": "I8",
-  "size": { "w": 150, "h": 100 },
+  "image": "C:\\Users\\Keith\\Documents\\GitHub\\CS413-Minimalism\\CS413-Minimalism\\images\\Aseprite\\Pship.png",
+  "format": "RGBA8888",
+  "size": { "w": 75, "h": 100 },
   "scale": "1",
   "frameTags": [
   ],
