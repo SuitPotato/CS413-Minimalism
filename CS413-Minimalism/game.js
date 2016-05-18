@@ -15,7 +15,8 @@ var Container = PIXI.Container,
 	TextureCache = PIXI.utils.TextureCache,
 	// Stores the information that represents an image or part of an image.
 	Texture = PIXI.Texture,
-	Sprite = PIXI.Sprite;
+	Sprite = PIXI.Sprite
+	Text = PIXI.Text;
 	
 // Creating the PIXI stage and renderer
 var stage = new Container(),
@@ -94,7 +95,7 @@ function setup() {
 	/*******************************************************************************************************
 	Game Over Text - Display score, however Game over is fine for now
 	*******************************************************************************************************/
-	/*
+	
 	gameOverMessage = new Text(
 		"Game Over!",
 		{font: "64px Arial", fill: "white"}
@@ -103,7 +104,7 @@ function setup() {
 	gameOverMessage.x = 400;
 	gameOverMessage.y = 300;
 	
-	gameOverScene.addChild(gameOverMessage); */
+	gameOverScene.addChild(gameOverMessage); 
 	
 	/*******************************************************************************************************
 	Ship Creation
