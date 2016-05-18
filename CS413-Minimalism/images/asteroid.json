@@ -1,19 +1,19 @@
 { "frames": {
    "asteroid.ase": {
-    "frame": { "x": 0, "y": 0, "w": 100, "h": 100 },
+    "frame": { "x": 0, "y": 0, "w": 30, "h": 50 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
-    "sourceSize": { "w": 100, "h": 100 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 50 },
+    "sourceSize": { "w": 30, "h": 50 },
     "duration": 100
    }
  },
  "meta": {
   "app": "http://www.aseprite.org/",
   "version": "1.1.5.2",
-  "image": "C:\\Users\\Keith\\Documents\\GitHub\\CS413-Minimalism\\CS413-Minimalism\\images\\asteroid.png",
-  "format": "I8",
-  "size": { "w": 100, "h": 100 },
+  "image": "C:\\Users\\Keith\\Documents\\GitHub\\CS413-Minimalism\\CS413-Minimalism\\images\\Aseprite\\asteroid.png",
+  "format": "RGBA8888",
+  "size": { "w": 30, "h": 50 },
   "scale": "1",
   "frameTags": [
   ],
