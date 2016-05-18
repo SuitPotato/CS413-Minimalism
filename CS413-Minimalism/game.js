@@ -143,10 +143,36 @@ function setup() {
 			ship.vx = 0;
 	}
 	/*******************************************************************************************************
+	Asteroid Setup!
+	*******************************************************************************************************/
+	var count = 8
+	
+	for(var i = 0; i<count; i++){
+		// Asteroid sprite created
+		var asteroid = new Sprite(id["asteroid.png"]);
+		
+		// Random x and set Y
+		var x = randomInt(0, stage.width - asteroid.width);
+		var y = 300;
+		
+		// Set the X and Y
+		asteroid.x = x;
+		asteroid.y = y;
+		
+		// Set the velocity
+		asteroid.vy = randomInt(1,10);
+		
+		// Push the asteroid
+		asteroids.push(asteroid);
+		
+		// Add to gameScene
+		gameScene.addChild(asteroid);
+	}
+	
+	/*******************************************************************************************************
 	Render Setup!
 	*******************************************************************************************************/
 	
-	spawnAsteroid(8,4);
 	renderer.render(stage);
 	state = play;
 	gameLoop();
@@ -178,11 +204,19 @@ function play() {
 	
 	// Calling contain function
 	contain(ship, {x: 0, y:0, width: 800, height: 600})
-	contain(asteroids, {x: 0, y: 800, width:800, height: 100})
 	
-	for(var i = 0; i < asteroids.length; i++) {
-		asteroids[i].position.y += asteroids[i].position.vy;
-	}
+	
+	asteroids.forEach(function(asteroid) {
+		
+		asteroid.y += asteroid.vy;
+		
+		var asteroidContained = contain(asteroid, {x: 0, y:0, width: 800, height: 600});
+		
+		if (asteroidContained === "top" || asteroidContained === "bottom")
+			asteroid.vy *= -1.0;
+
+	});
+	
 	
 	
 
@@ -228,6 +262,7 @@ function contain(sprite, container) {
 	// Bottom Side
 	if (sprite.y + sprite.height > container.height){
 		sprite.y = container.height - sprite.height;
+		collision = 'bottom';
 	}
 	
 	return collision
@@ -305,6 +340,8 @@ Hit Detection Function
 /*******************************************************************************************************
 Asteroid Creation - Need to have them spawn in and fly to the player 
 *******************************************************************************************************/
+
+/*
 function spawnAsteroid(count, maxSpeed) {
 	
 	
@@ -316,14 +353,14 @@ function spawnAsteroid(count, maxSpeed) {
 		
 		// Random x and set Y
 		var x = randomInt(0, stage.width - asteroid.width);
-		var y = 900;
+		var y = 300;
 		
 		// Set the X and Y
 		asteroid.x = x;
 		asteroid.y = y;
 		
 		// Set the velocity
-		asteroid.vy = randomInt(1,maxSpeed);
+		//asteroid.vy = randomInt(1,maxSpeed);
 		
 		// Push the asteroid
 		asteroids.push(asteroid);
@@ -332,10 +369,14 @@ function spawnAsteroid(count, maxSpeed) {
 		gameScene.addChild(asteroid);
 	}
 }
+*/
 
 /**********************************************************************************************************
 Asteroid Contain Function
 **********************************************************************************************************/
+// Not needed, used for testing
+
+/*
 function asteroidContain(sprite, container) {
 	
 	// Undef until collision, displays the collision location when a collision occurs
@@ -350,4 +391,4 @@ function asteroidContain(sprite, container) {
 	
 	return collision
 }
-
+*/
