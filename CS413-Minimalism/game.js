@@ -59,7 +59,7 @@ Variable Creation
 // State = State in which the game is in.
 var ship, asteroid, space, state;
 var asteroids = [];
-
+var score = 0;
 /**********************************************************************************************************
 Setup Function
 **********************************************************************************************************/
@@ -94,7 +94,7 @@ function setup() {
 	/*******************************************************************************************************
 	Game Over Text - Display score, however Game over is fine for now
 	*******************************************************************************************************/
-	
+	/*
 	gameOverMessage = new Text(
 		"Game Over!",
 		{font: "64px Arial", fill: "white"}
@@ -103,7 +103,7 @@ function setup() {
 	gameOverMessage.x = 400;
 	gameOverMessage.y = 300;
 	
-	//gameOverScene.addChild(gameOverMessage);
+	gameOverScene.addChild(gameOverMessage); */
 	
 	/*******************************************************************************************************
 	Ship Creation
@@ -145,7 +145,7 @@ function setup() {
 	/*******************************************************************************************************
 	Asteroid Setup!
 	*******************************************************************************************************/
-	var count = 8
+	var count = 10;
 	
 	for(var i = 0; i<count; i++){
 		// Asteroid sprite created
@@ -153,7 +153,7 @@ function setup() {
 		
 		// Random x and set Y
 		var x = randomInt(0, stage.width - asteroid.width);
-		var y = 300;
+		var y = -100;
 		
 		// Set the X and Y
 		asteroid.x = x;
@@ -198,28 +198,36 @@ Play Function and State
 **********************************************************************************************************/
 //Play needs to contain the movement of the player! 
 function play() {
-	
+	shipHit = false;
 	// Add (or subtract) to the ship's x-axis based on input
 	ship.x += ship.vx;
 	
 	// Calling contain function
-	contain(ship, {x: 0, y:0, width: 800, height: 600})
+	contain(ship, {x: 0, y:0, width: 800, height: 700})
 	
 	
 	asteroids.forEach(function(asteroid) {
 		
 		asteroid.y += asteroid.vy;
 		
-		var asteroidContained = contain(asteroid, {x: 0, y:0, width: 800, height: 600});
+		var asteroidContained = asteroidContain(asteroid, {x: 0, y:0, width: 800, height: 700});
 		
-		if (asteroidContained === "top" || asteroidContained === "bottom")
-			asteroid.vy *= -1.0;
-
+		
+		
+		if(hitTest(ship, asteroid)) {
+			shipHit = true;
+		}
+		
 	});
 	
-	
-	
+	if(shipHit) {
+		state = end;
+	} 
+}
 
+function end() {
+	gameScene.visibile = false;
+	gameOverScene.visible = true;
 }	
 
 /**********************************************************************************************************
@@ -336,59 +344,71 @@ function randomInt(min, max){
 Hit Detection Function
 **********************************************************************************************************/
 
-
-/*******************************************************************************************************
-Asteroid Creation - Need to have them spawn in and fly to the player 
-*******************************************************************************************************/
-
-/*
-function spawnAsteroid(count, maxSpeed) {
+function hitTest(r1, r2) {
 	
+	// Variables needed to test if there is a hit
+	var hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
 	
-	// Empty asteroid array	declared in global.
+	// Hit or not
+	hit = false;
 	
-	for(var i = 0; i<count; i++){
-		// Asteroid sprite created
-		var asteroid = new Sprite(id["asteroid.png"]);
-		
-		// Random x and set Y
-		var x = randomInt(0, stage.width - asteroid.width);
-		var y = 300;
-		
-		// Set the X and Y
-		asteroid.x = x;
-		asteroid.y = y;
-		
-		// Set the velocity
-		//asteroid.vy = randomInt(1,maxSpeed);
-		
-		// Push the asteroid
-		asteroids.push(asteroid);
-		
-		// Add to gameScene
-		gameScene.addChild(asteroid);
-	}
-}
-*/
-
+	// Finds the center of the rectangular sprites (only works with rectangles/boxes)
+	r1.centerX = r1.x + r1.width / 2;
+	r1.centerY = r1.y + r1.height / 2;
+	r2.centerX = r2.x + r2.width / 2;
+	r2.centerY = r2.y + r2.height / 2;
+	
+	// 
+	r1.halfWidth = r1.width / 2;
+	r1.halfHeight = r1.height / 2;
+	r2.halfWidth = r2.width / 2;
+	r2.halfHeight = r2.height / 2;
+	
+	//
+	vx = r1.centerX - r2.centerX;
+	vy = r1.centerY - r2.centerY;
+	
+	//
+	combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+	combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+	
+	//Check for a collision on the x axis
+	if (Math.abs(vx) < combinedHalfWidths) {
+		//A collision might be occuring. Check for a collision on the y axis
+		if (Math.abs(vy) < combinedHalfHeights) {
+			  //There's definitely a collision happening
+			  hit = true;
+		} else {
+			//There's no collision on the y axis
+			hit = false;
+    }
+	} else {
+		//There's no collision on the x axis
+		hit = false;
+  }
+	//`hit` will be either `true` or `false`
+	return hit;
+};
+	
 /**********************************************************************************************************
 Asteroid Contain Function
 **********************************************************************************************************/
-// Not needed, used for testing
-
-/*
+// Function is used to contain the asteroids in the
 function asteroidContain(sprite, container) {
 	
 	// Undef until collision, displays the collision location when a collision occurs
 	var collision = undefined;
 	
+	
 	// Bottom Side
 	if (sprite.y + sprite.height > container.height){
-		sprite.y = container.height - sprite.height;
-		sprite.x = randomInt(0, stage.width - asteroid.width);
-		collision = 'hit';
+		sprite.position.y = randomInt(-500, -100);
+		sprite.position.x = randomInt(0, stage.width - sprite.width);
+		sprite.vy = randomInt(1, 10) ;
+		score += 1;
+		collision = 'bottom';
 	}
 	
 	return collision
 }
-*/
+
