@@ -1,0 +1,36 @@
+{"frames": {
+
+"Background.png":
+{
+	"frame": {"x":1,"y":1,"w":800,"h":600},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":600},
+	"sourceSize": {"w":800,"h":600}
+},
+"Pship.png":
+{
+	"frame": {"x":1,"y":603,"w":144,"h":85},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":15,"w":144,"h":85},
+	"sourceSize": {"w":150,"h":100}
+},
+"asteroid.png":
+{
+	"frame": {"x":147,"y":603,"w":76,"h":76},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":10,"w":76,"h":76},
+	"sourceSize": {"w":100,"h":100}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "sheet.png",
+	"format": "RGBA8888",
+	"size": {"w":802,"h":689},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:67f442328a0254608063d3559bd01ff8:1e8b66151ac53e4603856a377f0d7014:9c44ecd7e9a522007eaff2949095bc1d$"
+}
+}
